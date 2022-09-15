@@ -1,0 +1,47 @@
+<section class="Search-Activities">
+    <div class="Search-Activities-Overlay">
+        <div class="Search-Activities-Content" id="Search-Activities-App">
+            {% raw %}
+            <h1>What do you want to do?</h1>
+            <form class="Search-Activities-Form" @submit="search(this)">
+                <input type="text" name="q" id="query" v-model="search_term" @input="search()">
+            </form>
+            <div class="Results">
+                <div class="Result" v-for="activity in activities">
+                    <h2 v-if="activity"><a :href="`/activities/${activity.slug}`">{{ activity.activity }}</a></h2>
+                </div>
+            </div>
+            {% endraw %}
+        </div>
+    </div>
+</section>
+<script>
+    const { createApp } = Vue
+
+    var app = createApp({
+        data() {
+            return {
+                all_activities: [],
+                activities: [],
+                search_term: ''
+            }
+        },
+        methods: {
+            search(){
+                activities = this.all_activities.map(activity => {
+                    if (activity.activity.includes(this.search_term)){
+                        return activity
+                    }
+                })
+                this.activities = activities
+            },
+        }
+    }).mount('#Search-Activities-App')
+
+    function get_all_activities(){
+        httpGetAsync('/api/activities', function(res) {
+            app.all_activities = JSON.parse(res)
+        })
+    }
+    get_all_activities()
+</script>

@@ -1,0 +1,12 @@
+---
+layout: page
+---
+<h1>{{ page.name }}</h1>
+{{ page.description | markdownify }}
+<h1>Things you can do with it:</h1>
+<ul>
+    {% for activity_id in page.activities %}
+    {% assign activity = site.activities | where: "airtable_id", activity_id | first %}
+    <li><a href="{{ activity.url }}">{{ activity.activity }}</a></li>
+    {% endfor %}
+</ul>

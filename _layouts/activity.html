@@ -1,0 +1,15 @@
+---
+layout: page
+---
+<h1>{{ page.activity }}</h1>
+{{ page.about | markdownify }}
+
+<h2>Which tools can help</h2>
+<ul>
+    {% for tool_id in page.tools %}
+    {% assign tool = site.tools | where: "airtable_id", tool_id | first %}
+    {% if tool %}
+    <li><a href="{{ tool.url }}">{{ tool.name }}</a></li>
+    {% endif %}
+    {% endfor %}
+</ul>

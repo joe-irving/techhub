@@ -1,0 +1,21 @@
+---
+layout: default
+---
+<noscript>
+    <section>
+        <h1>What do you want to do?</h1>
+        <ul>
+            {% for a in site.activities %}
+            <li><a href="{{a.url | relative_url }}">{{a.activity}}</a></li>
+            {% endfor %}
+        </ul>
+        <h1>What tool do you want to use?</h1>
+        <ul>
+            {% for t in site.tools %}
+            <li><a href="{{t.url | relative_url }}">{{t.name}}</a></li>
+            {% endfor %}
+        </ul>
+    </section>
+</noscript>
+
+{% include activities_search.html %}
